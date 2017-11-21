@@ -20,7 +20,7 @@ NAME = libftprintf.a
 # COMPILER #
 ############
 
-CC = clang
+CC = gcc
 CFLAGS = -O3 -Werror -Wall -Wextra
 
 #######
