@@ -59,7 +59,7 @@ static size_t	right_check_flags(size_t len, t_specs *specs, t_buffer *b)
 		ELIF(GET(specs->type, (T_O | T_UO)) && !specs->preci, b->add('0', b))
 	}
 	if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M)
-		&& !GET(specs->info, PRECI))
+			&& !GET(specs->info, PRECI))
 		add_nopt(&len, '0', (len < specs->width) ? specs->width - len : 0, b);
 	return (len);
 }
@@ -87,7 +87,8 @@ size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
 			ELIF(GET(specs->type, T_UX), b->addstr("0X", b))
 			ELIF(GET(specs->type, (T_O | T_UO)) && !specs->preci, b->add('0', b))
 		}
-		if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M))
+		if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M)
+				&& !GET(specs->info, PRECI))
 			add_nopt(&len, '0', (len < specs->width) ? specs->width - len : 0, b);
 	}
 	else
