@@ -20,9 +20,9 @@
 # define BUF_SIZE	4096
 # define TRUE	1
 # define FALSE	0
-# define ABS(X)	(X < 0) ? -X : X
-# define MIN(X, Y)	(X > Y) ? Y : X
-# define MAX(X, Y)	(X < Y) ? Y : X
+# define ABS(X)	((X < 0) ? -X : X)
+# define MIN(X, Y)	((X > Y) ? Y : X)
+# define MAX(X, Y)	((X < Y) ? Y : X)
 # define IF_RETURN(Bool, Value)	if (Bool) return (Value)
 # define IF(Bool, Do)	if (Bool) {Do;}
 # define ELIF(Bool, Do)	else if (Bool) {Do;}

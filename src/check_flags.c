@@ -68,7 +68,8 @@ static size_t	right_check_flags(size_t len, t_specs *specs, t_buffer *b)
 size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
 {
 	len = init_check_flags(len, specs);
-	if (GET(specs->flags, (F_M | F_Z)) || len >= specs->width)
+	if (GET(specs->flags, F_M)
+		|| (GET(specs->flags, F_Z) && GET(specs->info, PRECI)))
 	{
 		if (IS_SIGN(specs->type))
 		{
@@ -89,8 +90,7 @@ size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
 			ELIF(GET(specs->type, T_UX), b->addstr("0X", b))
 			ELIF(GET(specs->type, (T_O | T_UO)) && !specs->preci, b->add('0', b))
 		}
-		if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M)
-				&& !GET(specs->info, PRECI))
+		if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M))
 			add_nopt(&len, '0', (len < specs->width) ? specs->width - len : 0, b);
 	}
 	else
