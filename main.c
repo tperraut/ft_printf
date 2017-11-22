@@ -8,8 +8,8 @@ int	main(void) {
 	int a;
 	setlocale(LC_ALL, "");
 #ifdef __TEST__
-	printf("REAL:%04.2i:\n", 42);
-	ft_printf("MINE:%04.2i:\n", 42);
+	printf("REAL:%#.o:%#.0o:\n", 0, 0);
+	ft_printf("MINE:%#.o:%#.0o:\n", 0, 0);
 #endif
 #ifndef __TEST__
 	printf(":----BASIC TEST----:\n");

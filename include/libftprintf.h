@@ -87,6 +87,7 @@ typedef struct	s_buffer
 ** width : number length
 ** flags : 8b flags
 ** mod : 8b modifier
+** info : 8b informations
 ** type : 1b sign, 1b if precision to check, 14b type
 */
 
