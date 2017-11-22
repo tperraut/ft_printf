@@ -82,7 +82,8 @@ size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
 			else
 				add_nopt(&len, '-', 1, b);
 		}
-		if (GET(specs->flags, F_S) && !GET(specs->info, IS_0))
+		if (GET(specs->flags, F_S)
+				&& (!GET(specs->info, IS_0) || GET(specs->type, T_P)))
 		{
 			IF(GET(specs->type, T_X), b->addstr("0x", b))
 			ELIF(GET(specs->type, T_UX), b->addstr("0X", b))
