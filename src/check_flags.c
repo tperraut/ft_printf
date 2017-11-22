@@ -50,7 +50,7 @@ static size_t	right_check_flags(size_t len, t_specs *specs, t_buffer *b)
 				b->add(' ', b);
 		}
 		else
-			b->add('-', b);
+			add_nopt(&len, '-', 1, b);
 	}
 	if (GET(specs->flags, F_S)
 		&& (!GET(specs->info, IS_0) || GET(specs->type, T_P)))
@@ -69,7 +69,7 @@ size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
 {
 	len = init_check_flags(len, specs);
 	if (GET(specs->flags, F_M)
-		|| (GET(specs->flags, F_Z) && GET(specs->info, PRECI)))
+		|| (GET(specs->flags, F_Z) && !GET(specs->info, PRECI)))
 	{
 		if (IS_SIGN(specs->type))
 		{
