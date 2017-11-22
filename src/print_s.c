@@ -14,7 +14,7 @@ static size_t	ft_strlen(char *s)
 	return (len);
 }
 
-static void		add_nopt(size_t *len, char c, size_t size, t_buffer *b)
+static void		print_nopt(size_t *len, char c, size_t size, t_buffer *b)
 {
 	if (len)
 		while (size > 0)
