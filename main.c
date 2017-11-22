@@ -2,14 +2,14 @@
 #include <limits.h>
 #include "libftprintf.h"
 #include <locale.h>
-//#define __TEST__
+#define __TEST__
 
 int	main(void) {
 	int a;
 	setlocale(LC_ALL, "");
 #ifdef __TEST__
-	printf("REAL:%025p:\n", &a);
-	ft_printf("MINE:%025p:\n", &a);
+	printf("REAL:%04.2i:\n", 42);
+	ft_printf("MINE:%04.2i:\n", 42);
 #endif
 #ifndef __TEST__
 	printf(":----BASIC TEST----:\n");
