@@ -1,7 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_flags.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/24 11:20:46 by tperraut          #+#    #+#             */
+/*   Updated: 2017/11/24 14:07:54 by tperraut         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <libftprintf.h>
-#include <stdio.h> //DEBUG
-
 
 static void	add_nopt(size_t *len, char c, size_t size, t_buffer *b)
 {
@@ -20,86 +29,86 @@ static void	add_nopt(size_t *len, char c, size_t size, t_buffer *b)
 		}
 }
 
-static size_t	init_check_flags(size_t len, t_specs *specs)
+static size_t	init_check_flags(size_t len, t_specs *sp)
 {
-	if (GET(specs->info, PRECI))
+	if (GET(sp->info, PRECI))
 	{
-		specs->preci = ((specs->preci > len) ? specs->preci - len : 0);
-		len += specs->preci;
+		sp->preci = ((sp->preci > len) ? sp->preci - len : 0);
+		len += sp->preci;
 	}
-	if (GET(specs->flags, (F_P | F_SP)) && IS_SIGN(specs->type))
+	if (GET(sp->flags, (F_P | F_SP)) && IS_SIGN(sp->type))
 		len++;
-	if (GET(specs->flags, F_S) && !GET(specs->info, IS_0))
+	if (GET(sp->flags, F_S) && !GET(sp->info, IS_0))
 	{
-		IF(GET(specs->type, (T_X | T_UX)), len += 2)
-		ELIF(GET(specs->type, (T_O | T_UO)), len++)
+		IF(GET(sp->type, (T_X | T_UX)), len += 2)
+		ELIF(GET(sp->type, (T_O | T_UO)), len++)
 	}
 	return (len);
 }
 
-static size_t	right_check_flags(size_t len, t_specs *specs, t_buffer *b)
+static size_t	right_check_flags(size_t len, t_specs *sp, t_buffer *b)
 {
-	add_nopt(&len, ' ', (len < specs->width) ? specs->width - len : 0, b);
-	if (IS_SIGN(specs->type))
+	add_nopt(&len, ' ', (len < sp->width) ? sp->width - len : 0, b);
+	if (IS_SIGN(sp->type))
 	{
-		if (!GET(specs->info, SIGN))
+		if (!GET(sp->info, SIGN))
 		{
-			if (GET(specs->flags, F_P))
+			if (GET(sp->flags, F_P))
 				b->add('+', b);
-			else if (GET(specs->flags, F_SP))
+			else if (GET(sp->flags, F_SP))
 				b->add(' ', b);
 		}
 		else
 			add_nopt(&len, '-', 1, b);
 	}
-	if (GET(specs->flags, F_S)
-		&& (!GET(specs->info, IS_0) || GET(specs->type, T_P)))
+	if (GET(sp->flags, F_S)
+		&& (!GET(sp->info, IS_0) || GET(sp->type, T_P)))
 	{
-		IF(GET(specs->type, T_X), b->addstr("0x", b))
-		ELIF(GET(specs->type, T_UX), b->addstr("0X", b))
-		ELIF(GET(specs->type, (T_O | T_UO)) && !specs->preci, b->add('0', b))
+		IF(GET(sp->type, T_X), b->addstr("0x", b))
+		ELIF(GET(sp->type, T_UX), b->addstr("0X", b))
+		ELIF(GET(sp->type, (T_O | T_UO)) && !sp->preci, b->add('0', b))
 	}
-	if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M)
-			&& !GET(specs->info, PRECI))
-		add_nopt(&len, '0', (len < specs->width) ? specs->width - len : 0, b);
+	if (GET(sp->flags, F_Z) && !GET(sp->flags, F_M)
+			&& !GET(sp->info, PRECI))
+		add_nopt(&len, '0', (len < sp->width) ? sp->width - len : 0, b);
 	return (len);
 }
 
-size_t		check_flags_start(size_t len, t_specs *specs, t_buffer *b)
+size_t		check_flags_start(size_t len, t_specs *sp, t_buffer *b)
 {
-	len = init_check_flags(len, specs);
-	if (GET(specs->flags, F_M)
-		|| (GET(specs->flags, F_Z) && !GET(specs->info, PRECI)))
+	len = init_check_flags(len, sp);
+	if (GET(sp->flags, F_M)
+		|| (GET(sp->flags, F_Z) && !GET(sp->info, PRECI)))
 	{
-		if (IS_SIGN(specs->type))
+		if (IS_SIGN(sp->type))
 		{
-			if (!GET(specs->info, SIGN))
+			if (!GET(sp->info, SIGN))
 			{
-				if (GET(specs->flags, F_P))
+				if (GET(sp->flags, F_P))
 					b->add('+', b);
-				else if (GET(specs->flags, F_SP))
+				else if (GET(sp->flags, F_SP))
 					b->add(' ', b);
 			}
 			else
 				add_nopt(&len, '-', 1, b);
 		}
-		if (GET(specs->flags, F_S)
-				&& (!GET(specs->info, IS_0) || GET(specs->type, T_P)))
+		if (GET(sp->flags, F_S)
+				&& (!GET(sp->info, IS_0) || GET(sp->type, T_P)))
 		{
-			IF(GET(specs->type, T_X), b->addstr("0x", b))
-			ELIF(GET(specs->type, T_UX), b->addstr("0X", b))
-			ELIF(GET(specs->type, (T_O | T_UO)) && !specs->preci, b->add('0', b))
+			IF(GET(sp->type, T_X), b->addstr("0x", b))
+			ELIF(GET(sp->type, T_UX), b->addstr("0X", b))
+			ELIF(GET(sp->type, (T_O | T_UO)) && !sp->preci, b->add('0', b))
 		}
-		if (GET(specs->flags, F_Z) && !GET(specs->flags, F_M))
-			add_nopt(&len, '0', (len < specs->width) ? specs->width - len : 0, b);
+		if (GET(sp->flags, F_Z) && !GET(sp->flags, F_M))
+			add_nopt(&len, '0', (len < sp->width) ? sp->width - len : 0, b);
 	}
 	else
-		len = right_check_flags(len, specs, b);
-	add_nopt(NULL, '0', specs->preci, b);
+		len = right_check_flags(len, sp, b);
+	add_nopt(NULL, '0', sp->preci, b);
 	return (len);
 }
 
-void		check_flags_end(size_t len, t_specs *specs, t_buffer *b)
+void		check_flags_end(size_t len, t_specs *sp, t_buffer *b)
 {
-	add_nopt(&len, ' ', (len < specs->width) ? specs->width - len : 0, b);
+	add_nopt(&len, ' ', (len < sp->width) ? sp->width - len : 0, b);
 }

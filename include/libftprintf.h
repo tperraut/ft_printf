@@ -6,7 +6,7 @@
 /*   By: tperraut <tperraut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 16:22:02 by tperraut          #+#    #+#             */
-/*   Updated: 2016/05/17 11:10:34 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/24 14:13:30 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,20 @@
 # define UALPHA_16	"0123456789ABCDEF"
 # define ALPHA_16	"0123456789abcdef"
 # define ZERO	0x00
-/* Flags */
+
+/*
+** Flags
+*/
 # define FLAGS	"#0+- "
 # define F_S	0x01
 # define F_Z	0x02
 # define F_P	0x04
 # define F_M	0x08
 # define F_SP	0x10
-/* Modifiers */
+
+/*
+** Modifiers
+*/
 # define MOD	"lhjz"
 # define M_L	0x01
 # define M_LL	0x02
@@ -46,12 +52,18 @@
 # define M_HH	0x08
 # define M_J	0x10
 # define M_Z	0x20
-/*INFO*/
+
+/*
+** Info
+*/
 # define PRECI	0x01
 # define SIGN	0x02
 # define IS_0	0x04
 # define NEG(Num)	((Num & SIGN) ? TRUE : FALSE)
-/* Types */
+
+/*
+** Types
+*/
 # define TYPE	"dsciuxopbCSDOUX"
 # define T_D	0x0001
 # define T_UD	0x0002
@@ -62,7 +74,6 @@
 # define T_UU	0x0040
 # define T_X	0x0080
 # define T_UX	0x0100
-/* BONUS : Binary type */
 # define T_B	0x0200
 # define T_C	0x0400
 # define T_UC	0x0800
@@ -77,8 +88,9 @@ typedef struct	s_buffer
 {
 	char	data[BUF_SIZE];
 	size_t	size;
+	size_t	len;
 	void	(*add)(char c, struct s_buffer *b);
-	void	(*flush)(struct s_buffer *b);
+	size_t	(*flush)(struct s_buffer *b);
 	void	(*addstr)(char *str, struct s_buffer *b);
 }				t_buffer;
 
@@ -101,38 +113,38 @@ typedef struct	s_specs
 	unsigned short	type;
 }				t_specs;
 
-int		ft_printf(const char *format, ...);
-void	buf_init(t_buffer *b);
-void	switch_mode(char **format, t_buffer *b, va_list ap);
-void	init_specs(t_specs *specs);
-size_t	uatoi(char **fmt);
-char	is_contain(char c, char *str);
-char	get_base(t_specs *specs);
-void	add_flags(char **fmt, t_specs *specs);
-size_t	check_flags_start(size_t len, t_specs *specs, t_buffer *b);
-void	check_flags_end(size_t len, t_specs *specs, t_buffer *b);
-void	add_mod(char **fmt, t_specs *specs);
-void	add_width(char **fmt, t_specs *specs);
-void	add_preci(char **fmt, t_specs *specs);
-void	add_type(char **fmt, t_specs *specs);
-/**/
-void	print_uchar(unsigned char n, t_specs *specs, t_buffer *b);
-void	print_char(char n, t_specs *specs, t_buffer *b);
-void	print_ushort(unsigned short n, t_specs *specs, t_buffer *b);
-void	print_short(short n, t_specs *specs, t_buffer *b);
-void	print_uint(unsigned int n, t_specs *specs, t_buffer *b);
-void	print_int(int n, t_specs *specs, t_buffer *b);
-void	print_ulong(unsigned long n, t_specs *specs, t_buffer *b);
-void	print_long(long n, t_specs *specs, t_buffer *b);
-void	print_ullong(unsigned long long n, t_specs *specs, t_buffer *b);
-void	print_llong(long long n, t_specs *specs, t_buffer *b);
-void	print_uintmax_t(uintmax_t n, t_specs *specs, t_buffer *b);
-void	print_intmax_t(intmax_t n, t_specs *specs, t_buffer *b);
-void	print_size_t(size_t n, t_specs *specs, t_buffer *b);
-void	print_p(size_t n, t_specs *specs, t_buffer *b);
-void	print_s(char *s, t_specs *specs, t_buffer *b);
-void	print_ws(wchar_t *s, t_specs *specs, t_buffer *b);
-void	print_c(char s, t_specs *specs, t_buffer *b);
-void	print_wc(wint_t s, t_specs *specs, t_buffer *b);
+int				ft_printf(const char *format, ...);
+void			buf_init(t_buffer *b);
+void			switch_mode(char **format, t_buffer *b, va_list ap);
+void			init_specs(t_specs *sp);
+size_t			uatoi(char **fmt);
+char			is_contain(char c, char *str);
+char			get_base(t_specs *sp);
+void			add_flags(char **fmt, t_specs *sp);
+size_t			check_flags_start(size_t len, t_specs *sp, t_buffer *b);
+void			check_flags_end(size_t len, t_specs *sp, t_buffer *b);
+void			add_mod(char **fmt, t_specs *sp);
+void			add_width(char **fmt, t_specs *sp);
+void			add_preci(char **fmt, t_specs *sp);
+void			add_type(char **fmt, t_specs *sp);
+
+void			print_uchar(unsigned char n, t_specs *sp, t_buffer *b);
+void			print_char(char n, t_specs *sp, t_buffer *b);
+void			print_ushort(unsigned short n, t_specs *sp, t_buffer *b);
+void			print_short(short n, t_specs *sp, t_buffer *b);
+void			print_uint(unsigned int n, t_specs *sp, t_buffer *b);
+void			print_int(int n, t_specs *sp, t_buffer *b);
+void			print_ulong(unsigned long n, t_specs *sp, t_buffer *b);
+void			print_long(long n, t_specs *sp, t_buffer *b);
+void			print_ullong(unsigned long long n, t_specs *sp, t_buffer *b);
+void			print_llong(long long n, t_specs *sp, t_buffer *b);
+void			print_uintmax_t(uintmax_t n, t_specs *sp, t_buffer *b);
+void			print_intmax_t(intmax_t n, t_specs *sp, t_buffer *b);
+void			print_size_t(size_t n, t_specs *sp, t_buffer *b);
+void			print_p(size_t n, t_specs *sp, t_buffer *b);
+void			print_s(char *s, t_specs *sp, t_buffer *b);
+void			print_ws(wchar_t *s, t_specs *sp, t_buffer *b);
+void			print_c(char s, t_specs *sp, t_buffer *b);
+void			print_wc(wint_t s, t_specs *sp, t_buffer *b);
 
 #endif

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/24 11:22:50 by tperraut          #+#    #+#             */
+/*   Updated: 2017/11/24 14:07:09 by tperraut         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
@@ -21,13 +32,13 @@ size_t	uatoi(char **fmt)
 	return (n);
 }
 
-char	get_base(t_specs *specs)
+char	get_base(t_specs *sp)
 {
-	if (GET(specs->type, (T_X | T_UX)))
+	if (GET(sp->type, (T_X | T_UX)))
 		return (16);
-	if (GET(specs->type, (T_O | T_UO)))
+	if (GET(sp->type, (T_O | T_UO)))
 		return (8);
-	if (GET(specs->type, T_B))
+	if (GET(sp->type, T_B))
 		return (2);
 	return (10);
 }

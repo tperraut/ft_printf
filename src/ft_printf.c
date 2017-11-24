@@ -6,7 +6,7 @@
 /*   By: tperraut <tperraut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 23:50:11 by tperraut          #+#    #+#             */
-/*   Updated: 2016/05/01 18:01:00 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/24 12:07:50 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 #include "libftprintf.h"
 
-int	ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	t_buffer	buf;
-	va_list	ap;
-	char	*tmp;
+	va_list		ap;
+	char		*tmp;
 
 	buf_init(&buf);
 	if (!format)
@@ -36,7 +36,6 @@ int	ft_printf(const char *format, ...)
 			tmp++;
 		}
 	}
-	buf.flush(&buf);
 	va_end(ap);
-	return (1);
+	return ((int) buf.flush(&buf));
 }

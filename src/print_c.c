@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_c.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/24 11:23:10 by tperraut          #+#    #+#             */
+/*   Updated: 2017/11/24 14:09:11 by tperraut         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	print_c(char c, t_specs *specs, t_buffer *b)
+void	print_c(char c, t_specs *sp, t_buffer *b)
 {
-	if (specs && b)
+	if (sp && b)
 		b->add(c, b);
 }
