@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:22:30 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 13:33:55 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/28 16:42:30 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t	buf_flush(t_buffer *b)
 	return (b->len);
 }
 
-static void	buf_add(char c, t_buffer *b)
+static void		buf_add(char c, t_buffer *b)
 {
 	if (!(b->size < BUF_SIZE))
 		b->flush(b);
@@ -32,7 +32,7 @@ static void	buf_add(char c, t_buffer *b)
 	b->size++;
 }
 
-static void	buf_addstr(char *str, t_buffer *b)
+static void		buf_addstr(char *str, t_buffer *b)
 {
 	if (!str)
 		return ;
@@ -43,7 +43,7 @@ static void	buf_addstr(char *str, t_buffer *b)
 	}
 }
 
-void		buf_init(t_buffer *b)
+void			buf_init(t_buffer *b)
 {
 	if (!b)
 		return ;
