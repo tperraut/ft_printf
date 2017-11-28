@@ -17,6 +17,8 @@ static size_t	ft_strlen(char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s || s == 0)
+		return (len);
 	while (*s)
 	{
 		len++;
@@ -47,6 +49,8 @@ static void		print_ns(size_t *len, char *s, size_t size, t_buffer *b)
 	size_t	i;
 
 	i = 0;
+	if (!s || s == 0)
+		return ;
 	if (len)
 		while (i < size && s[i])
 		{
@@ -64,6 +68,8 @@ static void		print_ns(size_t *len, char *s, size_t size, t_buffer *b)
 
 static	void	print_ss(size_t *len, char *s, t_buffer *b)
 {
+	if (!s || s == 0)
+		return ;
 	while (*s)
 	{
 		b->add(*s, b);
@@ -77,7 +83,7 @@ void			print_s(char *s, t_specs *sp, t_buffer *b)
 	size_t	len;
 
 	len = 0;
-	if (!s || s == 0)
+	if ((!s || s == 0) && !GET(sp->info, PRECI))
 		b->addstr("(null)", b);
 	else if (GET(sp->info, PRECI))
 	{

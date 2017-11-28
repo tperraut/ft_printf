@@ -23,10 +23,6 @@
 # define ABS(X)	((X < 0) ? -X : X)
 # define MIN(X, Y)	((X > Y) ? Y : X)
 # define MAX(X, Y)	((X < Y) ? Y : X)
-# define IF_RETURN(Bool, Value)	if (Bool) return (Value)
-# define IF(Bool, Do)	if (Bool) {Do;}
-# define ELIF(Bool, Do)	else if (Bool) {Do;}
-# define ELSE(Do)	else {Do;}
 # define INIT(Type, Var, Value)	Type Var = Value
 # define UALPHA_16	"0123456789ABCDEF"
 # define ALPHA_16	"0123456789abcdef"
@@ -81,8 +77,8 @@
 # define T_US	0x2000
 # define T_P	0x4000
 # define IS_SIGN(Num)	(Num > ZERO && Num < T_O)
-# define SET(Num, Mask)	Num |= Mask
-# define GET(Num, Mask)	((Num & Mask) ? TRUE : FALSE)
+# define SET(Num, Mask)	Num |= (Mask)
+# define GET(Num, Mask)	(((Num) & (Mask)) ? TRUE : FALSE)
 
 typedef struct	s_buffer
 {
@@ -115,11 +111,12 @@ typedef struct	s_specs
 
 int				ft_printf(const char *format, ...);
 void			buf_init(t_buffer *b);
-void			switch_mode(char **format, t_buffer *b, va_list ap);
+void			switch_mode(char **format, t_buffer *b, t_specs sp, va_list ap);
 void			init_specs(t_specs *sp);
 size_t			uatoi(char **fmt);
 char			is_contain(char c, char *str);
 char			get_base(t_specs *sp);
+char			is_empty(t_specs *sp);
 void			add_flags(char **fmt, t_specs *sp);
 size_t			check_flags_start(size_t len, t_specs *sp, t_buffer *b);
 void			check_flags_end(size_t len, t_specs *sp, t_buffer *b);

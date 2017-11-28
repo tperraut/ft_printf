@@ -18,6 +18,7 @@
 int		ft_printf(const char *format, ...)
 {
 	t_buffer	buf;
+	t_specs		sp;
 	va_list		ap;
 	char		*tmp;
 
@@ -29,7 +30,7 @@ int		ft_printf(const char *format, ...)
 	while (*tmp)
 	{
 		if (*tmp == '%')
-			switch_mode(&tmp, &buf, ap);
+			switch_mode(&tmp, &buf, &sp, ap);
 		else
 		{
 			buf.add(*tmp, &buf);

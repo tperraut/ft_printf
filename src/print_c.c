@@ -14,6 +14,24 @@
 
 void	print_c(char c, t_specs *sp, t_buffer *b)
 {
-	if (sp && b)
+	if (GET(sp->flags, F_M))
+	{
 		b->add(c, b);
+		sp->width = (sp->width) ? sp->width - 1 : 0;
+		while (sp->width > 0)
+		{
+			b->add(' ', b);
+			(sp->width)--;
+		}
+	}
+	else
+	{
+		sp->width = (sp->width) ? sp->width - 1 : 0;
+		while (sp->width > 0)
+		{
+			b->add(' ', b);
+			(sp->width)--;
+		}
+		b->add(c, b);
+	}
 }

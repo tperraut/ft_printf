@@ -84,12 +84,14 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(LIB) $@ $^
+$(NAME): $(OBJ_DIR) $(OBJ)
+	$(LIB) $@ $(OBJ)
 	ranlib $@
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE)
+$(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCLUDE)
 	$(CC) $(CFLAGS) -o $@ -c $< $(INC)
 
 clean:

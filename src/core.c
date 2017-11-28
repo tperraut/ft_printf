@@ -16,7 +16,8 @@ size_t	uatoi(char **fmt)
 {
 	size_t	n;
 
-	IF_RETURN(!fmt || !*fmt, 0);
+	if (!fmt || !*fmt)
+		return (0);
 	n = 0;
 	if (!(**fmt < '0' || **fmt > '9'))
 	{
@@ -34,9 +35,9 @@ size_t	uatoi(char **fmt)
 
 char	get_base(t_specs *sp)
 {
-	if (GET(sp->type, (T_X | T_UX)))
+	if (GET(sp->type, T_X | T_UX))
 		return (16);
-	if (GET(sp->type, (T_O | T_UO)))
+	if (GET(sp->type, T_O | T_UO))
 		return (8);
 	if (GET(sp->type, T_B))
 		return (2);
@@ -53,5 +54,14 @@ char	is_contain(char c, char *str)
 			return (TRUE);
 		str++;
 	}
+	return (FALSE);
+}
+
+char	is_empty(t_specs *sp)
+{
+	if (GET(sp->info, IS_0) && GET(sp->info, PRECI) && !(sp->preci)
+			&& (GET(sp->type, T_X | T_UX | T_D | T_UD)
+				|| (GET(sp->type, T_O | T_UO) && !GET(sp->flags, F_S))))
+		return (TRUE);
 	return (FALSE);
 }

@@ -21,18 +21,18 @@ void	print_ullong(unsigned long long n, t_specs *sp, t_buffer *b)
 	len = 1;
 	i = n;
 	div = 1;
-	if (n == 0)
-		SET(sp->info, IS_0);
+	SET(sp->info, (n == 0) ? IS_0 : ZERO);
 	while (i >= base && ++len)
 	{
 		div *= base;
 		i /= base;
 	}
 	len = check_flags_start(len, sp, b);
-	while (div)
-	{
-		b->add(alpha_16[(n / div) % base], b);
-		div /= base;
-	}
+	if (!is_empty(sp))
+		while (div)
+		{
+			b->add(alpha_16[(n / div) % base], b);
+			div /= base;
+		}
 	check_flags_end(len, sp, b);
 }

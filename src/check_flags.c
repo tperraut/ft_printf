@@ -33,15 +33,22 @@ static size_t	init_check_flags(size_t len, t_specs *sp)
 {
 	if (GET(sp->info, PRECI))
 	{
-		sp->preci = ((sp->preci > len) ? sp->preci - len : 0);
-		len += sp->preci;
+		if (is_empty(sp))
+			len = 0;
+		else
+		{
+			sp->preci = ((sp->preci > len) ? sp->preci - len : 0);
+			len += sp->preci;
+		}
 	}
-	if (GET(sp->flags, (F_P | F_SP)) && IS_SIGN(sp->type))
+	if ((GET(sp->flags, F_P | F_SP) || NEG(sp->info)) && IS_SIGN(sp->type))
 		len++;
 	if (GET(sp->flags, F_S) && !GET(sp->info, IS_0))
 	{
-		IF(GET(sp->type, (T_X | T_UX)), len += 2)
-		ELIF(GET(sp->type, (T_O | T_UO)), len++)
+		if (GET(sp->type, T_X | T_UX))
+			len += 2;
+		else if (GET(sp->type, T_O | T_UO))
+			len++;
 	}
 	return (len);
 }
@@ -51,7 +58,7 @@ static size_t	right_check_flags(size_t len, t_specs *sp, t_buffer *b)
 	add_nopt(&len, ' ', (len < sp->width) ? sp->width - len : 0, b);
 	if (IS_SIGN(sp->type))
 	{
-		if (!GET(sp->info, SIGN))
+		if (!NEG(sp->info))
 		{
 			if (GET(sp->flags, F_P))
 				b->add('+', b);
@@ -59,14 +66,17 @@ static size_t	right_check_flags(size_t len, t_specs *sp, t_buffer *b)
 				b->add(' ', b);
 		}
 		else
-			add_nopt(&len, '-', 1, b);
+			b->add('-', b);
 	}
 	if (GET(sp->flags, F_S)
 		&& (!GET(sp->info, IS_0) || GET(sp->type, T_P)))
 	{
-		IF(GET(sp->type, T_X), b->addstr("0x", b))
-		ELIF(GET(sp->type, T_UX), b->addstr("0X", b))
-		ELIF(GET(sp->type, (T_O | T_UO)) && !sp->preci, b->add('0', b))
+		if (GET(sp->type, T_X))
+			b->addstr("0x", b);
+		else if (GET(sp->type, T_UX))
+			b->addstr("0X", b);
+		else if (GET(sp->type, T_O | T_UO) && !sp->preci)
+			b->add('0', b);
 	}
 	if (GET(sp->flags, F_Z) && !GET(sp->flags, F_M)
 			&& !GET(sp->info, PRECI))
@@ -82,7 +92,7 @@ size_t		check_flags_start(size_t len, t_specs *sp, t_buffer *b)
 	{
 		if (IS_SIGN(sp->type))
 		{
-			if (!GET(sp->info, SIGN))
+			if (!NEG(sp->info))
 			{
 				if (GET(sp->flags, F_P))
 					b->add('+', b);
@@ -90,14 +100,17 @@ size_t		check_flags_start(size_t len, t_specs *sp, t_buffer *b)
 					b->add(' ', b);
 			}
 			else
-				add_nopt(&len, '-', 1, b);
+				b->add('-', b);
 		}
 		if (GET(sp->flags, F_S)
 				&& (!GET(sp->info, IS_0) || GET(sp->type, T_P)))
 		{
-			IF(GET(sp->type, T_X), b->addstr("0x", b))
-			ELIF(GET(sp->type, T_UX), b->addstr("0X", b))
-			ELIF(GET(sp->type, (T_O | T_UO)) && !sp->preci, b->add('0', b))
+			if (GET(sp->type, T_X))
+				b->addstr("0x", b);
+			else if (GET(sp->type, T_UX))
+				b->addstr("0X", b);
+			else if (GET(sp->type, T_O | T_UO) && !sp->preci)
+				b->add('0', b);
 		}
 		if (GET(sp->flags, F_Z) && !GET(sp->flags, F_M))
 			add_nopt(&len, '0', (len < sp->width) ? sp->width - len : 0, b);
