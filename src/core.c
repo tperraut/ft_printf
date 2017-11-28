@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:22:50 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 14:07:09 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:42:35 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	is_contain(char c, char *str)
 char	is_empty(t_specs *sp)
 {
 	if (GET(sp->info, IS_0) && GET(sp->info, PRECI) && !(sp->preci)
-			&& (GET(sp->type, T_X | T_UX | T_D | T_UD)
+			&& (GET(sp->type, T_I | T_U | T_X | T_UX | T_D | T_UD)
 				|| (GET(sp->type, T_O | T_UO) && !GET(sp->flags, F_S))))
 		return (TRUE);
 	return (FALSE);

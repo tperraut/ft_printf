@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:20:46 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 14:07:54 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:38:26 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static size_t	init_check_flags(size_t len, t_specs *sp)
 		else if (GET(sp->type, T_O | T_UO))
 			len++;
 	}
+	else if (GET(sp->flags, F_S) && GET(sp->info, IS_0) && GET(sp->type, T_P))
+		len += 2;
 	return (len);
 }
 
@@ -117,7 +119,8 @@ size_t		check_flags_start(size_t len, t_specs *sp, t_buffer *b)
 	}
 	else
 		len = right_check_flags(len, sp, b);
-	add_nopt(NULL, '0', sp->preci, b);
+	if (sp->type)
+		add_nopt(NULL, '0', sp->preci, b);
 	return (len);
 }
 

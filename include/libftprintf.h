@@ -6,7 +6,7 @@
 /*   By: tperraut <tperraut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 16:22:02 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 14:13:30 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/11/28 14:36:47 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct	s_specs
 
 int				ft_printf(const char *format, ...);
 void			buf_init(t_buffer *b);
-void			switch_mode(char **format, t_buffer *b, t_specs sp, va_list ap);
+void			switch_mode(char **format, t_buffer *b, t_specs *sp, va_list ap);
 void			init_specs(t_specs *sp);
 size_t			uatoi(char **fmt);
 char			is_contain(char c, char *str);

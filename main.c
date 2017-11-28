@@ -8,11 +8,8 @@ int	main(void) {
 	int a;
 	setlocale(LC_ALL, "");
 #ifdef __TEST__
-	a = printf("REAL:{%5.Z}:\n", 2);
-	printf("REAL:%d:\n", a);
-	a = ft_printf("MEAL:{%05.Z}:\n", 0);
-	printf("REAL:%d:\n", a);
-	ft_printf("MEAL:%          5%:\n");
+	printf(":T %%R : {%-15Zlol}:\n", 123);
+	ft_printf(":B %%R : {%-15Zlol}:\n\n", 123);
 #endif
 #ifndef __TEST__
 	printf(":----BASIC TEST----:\n");

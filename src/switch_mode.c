@@ -49,8 +49,11 @@ static void	switch_uprint(t_buffer *b, t_specs *sp, va_list ap)
 		print_s(va_arg(ap, char *), sp, b);
 }
 
-void	switch_mode(char **format, t_buffer *b, t_specs sp, va_list ap)
+void	switch_mode(char **format, t_buffer *b, t_specs *sp, va_list ap)
 {
+	size_t	len;
+
+	len = 0;
 	init_specs(sp);
 	if (!format || !*format || !**format || !b || !ap)
 		return;
@@ -60,12 +63,21 @@ void	switch_mode(char **format, t_buffer *b, t_specs sp, va_list ap)
 	add_preci(format, sp);
 	if (**format == '%')
 	{
+		len = check_flags_start(1, sp, b);
 		b->add('%', b);
+		check_flags_end(len, sp, b);
 		(*format)++;
 		return;
 	}
 	add_mod(format, sp);
 	add_type(format, sp);
-	if (sp.type)
+	if (sp->type)
 		switch_uprint(b, sp, ap);
+	else
+	{
+		len = check_flags_start(1, sp, b);
+		b->add(**format, b);
+		check_flags_end(len, sp, b);
+		(*format)++;
+	}
 }
