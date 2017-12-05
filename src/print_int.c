@@ -5,7 +5,7 @@ void	print_int(int n, t_specs *sp, t_buffer *b)
 {
 	if (n < 0)
 		SET(sp->info, SIGN);
-	print_uint((unsigned int) ABS(n), sp, b);
+	print_uint((unsigned int)ABS(n), sp, b);
 }
 
 void	print_uint(unsigned int n, t_specs *sp, t_buffer *b)
@@ -16,7 +16,7 @@ void	print_uint(unsigned int n, t_specs *sp, t_buffer *b)
 	unsigned int	base;
 	unsigned int	i;
 
-	base = (unsigned int) get_base(sp);
+	base = (unsigned int)get_base(sp);
 	alpha_16 = (GET(sp->type, T_X)) ? ALPHA_16 : UALPHA_16;
 	len = 1;
 	i = n;

@@ -5,7 +5,7 @@ void	print_llong(long long n, t_specs *sp, t_buffer *b)
 {
 	if (n < 0)
 		SET(sp->info, SIGN);
-	print_ullong((unsigned long long) ABS(n), sp, b);
+	print_ullong((unsigned long long)ABS(n), sp, b);
 }
 
 void	print_ullong(unsigned long long n, t_specs *sp, t_buffer *b)
@@ -16,7 +16,7 @@ void	print_ullong(unsigned long long n, t_specs *sp, t_buffer *b)
 	unsigned long long	base;
 	unsigned long long	i;
 
-	base = (unsigned long long) get_base(sp);
+	base = (unsigned long long)get_base(sp);
 	alpha_16 = (GET(sp->type, T_X)) ? ALPHA_16 : UALPHA_16;
 	len = 1;
 	i = n;

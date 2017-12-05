@@ -5,7 +5,7 @@ void	print_short(short n, t_specs *sp, t_buffer *b)
 {
 	if (n < 0)
 		SET(sp->info, SIGN);
-	print_ushort((unsigned short) ABS(n), sp, b);
+	print_ushort((unsigned short)ABS(n), sp, b);
 }
 
 void	print_ushort(unsigned short n, t_specs *sp, t_buffer *b)
@@ -16,7 +16,7 @@ void	print_ushort(unsigned short n, t_specs *sp, t_buffer *b)
 	unsigned short	base;
 	unsigned short	i;
 
-	base = (unsigned short) get_base(sp);
+	base = (unsigned short)get_base(sp);
 	alpha_16 = (GET(sp->type, T_X)) ? ALPHA_16 : UALPHA_16;
 	len = 1;
 	i = n;

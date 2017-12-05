@@ -96,7 +96,7 @@ typedef struct	s_buffer
 ** flags : 8b flags
 ** mod : 8b modifier
 ** info : 8b informations
-** type : 1b sign, 1b if precision to check, 14b type
+** type : 16b type
 */
 
 typedef struct	s_specs
@@ -111,7 +111,7 @@ typedef struct	s_specs
 
 int				ft_printf(const char *format, ...);
 void			buf_init(t_buffer *b);
-void			switch_mode(char **format, t_buffer *b, t_specs *sp, va_list ap);
+void			switch_mode(char **fmt, t_buffer *b, t_specs *sp, va_list ap);
 void			init_specs(t_specs *sp);
 size_t			uatoi(char **fmt);
 char			is_contain(char c, char *str);

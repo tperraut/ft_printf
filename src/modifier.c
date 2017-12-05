@@ -12,11 +12,35 @@
 
 #include "libftprintf.h"
 
-void	add_mod(char **fmt, t_specs *sp)
+static char	basic_mod(char mod)
+{
+	if (mod == 'l')
+		return (M_L);
+	if (mod == 'h')
+		return (M_H);
+	if (mod == 'j')
+		return (M_J);
+	if (mod == 'z')
+		return (M_Z);
+	return (ZERO);
+}
+
+static char	advanced_mod(char mod)
+{
+	if (mod == 'l')
+		return (M_LL);
+	if (mod == 'h')
+		return (M_HH);
+	return (ZERO);
+}
+
+void		add_mod(char **fmt, t_specs *sp)
 {
 	char	c;
+	char	*mod;
 
 	c = '\0';
+	mod = MOD;
 	if (is_contain(**fmt, MOD))
 	{
 		c = **fmt;
@@ -24,18 +48,15 @@ void	add_mod(char **fmt, t_specs *sp)
 	}
 	else
 		return ;
-	if (!GET(sp->mod, M_LL) && **fmt == 'l' && c == 'l')
-		SET(sp->mod, M_LL);
-	else if (!GET(sp->mod, M_L) && c == 'l')
-		SET(sp->mod, M_L);
-	else if (!GET(sp->mod, M_HH) && **fmt == 'h' && c == 'h')
-		SET(sp->mod, M_HH);
-	else if (!GET(sp->mod, M_H) && c == 'h')
-		SET(sp->mod, M_H);
-	else if (!GET(sp->mod, M_J) && c == 'j')
-		SET(sp->mod, M_J);
-	else if (!GET(sp->mod, M_Z) && c == 'z')
-		SET(sp->mod, M_Z);
-	if (is_contain(**fmt, MOD))
-		(*fmt)++;
+	while (!sp->mod && *mod)
+	{
+		if (**fmt == *mod && *mod == c)
+		{
+			SET(sp->mod, advanced_mod(*mod));
+			(*fmt)++;
+		}
+		mod++;
+	}
+	if (!sp->mod)
+		SET(sp->mod, basic_mod(c));
 }

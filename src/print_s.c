@@ -66,15 +66,25 @@ static void		print_ns(size_t *len, char *s, size_t size, t_buffer *b)
 		}
 }
 
-static	void	print_ss(size_t *len, char *s, t_buffer *b)
+static	void	print_s_nopreci(size_t len, char *s, t_buffer *b, t_specs *sp)
 {
-	if (!s || s == 0)
-		return ;
-	while (*s)
+	if (GET(sp->flags, F_M))
 	{
-		b->add(*s, b);
-		(*len)++;
-		s++;
+		if (!s || s == 0)
+			return ;
+		while (*s)
+		{
+			b->add(*s, b);
+			len++;
+			s++;
+		}
+		print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
+	}
+	else
+	{
+		len = ft_strlen(s);
+		print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
+		print_ns(NULL, s, len, b);
 	}
 }
 
@@ -100,17 +110,5 @@ void			print_s(char *s, t_specs *sp, t_buffer *b)
 		}
 	}
 	else
-	{
-		if (GET(sp->flags, F_M))
-		{
-			print_ss(&len, s, b);
-			print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
-		}
-		else
-		{
-			len = ft_strlen(s);
-			print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
-			print_ns(NULL, s, len, b);
-		}
-	}
+		print_s_nopreci(len, s, b, sp);
 }

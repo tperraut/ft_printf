@@ -14,7 +14,7 @@
 
 void	print_p(size_t n, t_specs *sp, t_buffer *b)
 {
-		SET(sp->flags, F_S);
-		SET(sp->type, T_X);
-		print_size_t(n, sp, b);
+	SET(sp->flags, F_S);
+	SET(sp->type, T_X);
+	print_size_t(n, sp, b);
 }

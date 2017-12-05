@@ -5,7 +5,7 @@ void	print_intmax_t(intmax_t n, t_specs *sp, t_buffer *b)
 {
 	if (n < 0)
 		SET(sp->info, SIGN);
-	print_uintmax_t((uintmax_t) ABS(n), sp, b);
+	print_uintmax_t((uintmax_t)ABS(n), sp, b);
 }
 
 void	print_uintmax_t(uintmax_t n, t_specs *sp, t_buffer *b)
@@ -16,7 +16,7 @@ void	print_uintmax_t(uintmax_t n, t_specs *sp, t_buffer *b)
 	uintmax_t	base;
 	uintmax_t	i;
 
-	base = (uintmax_t) get_base(sp);
+	base = (uintmax_t)get_base(sp);
 	alpha_16 = (GET(sp->type, T_X)) ? ALPHA_16 : UALPHA_16;
 	len = 1;
 	i = n;

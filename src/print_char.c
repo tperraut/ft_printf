@@ -5,7 +5,7 @@ void	print_char(char n, t_specs *sp, t_buffer *b)
 {
 	if (n < 0)
 		SET(sp->info, SIGN);
-	print_uchar((unsigned char) ABS(n), sp, b);
+	print_uchar((unsigned char)ABS(n), sp, b);
 }
 
 void	print_uchar(unsigned char n, t_specs *sp, t_buffer *b)
@@ -16,7 +16,7 @@ void	print_uchar(unsigned char n, t_specs *sp, t_buffer *b)
 	unsigned char	base;
 	unsigned char	i;
 
-	base = (unsigned char) get_base(sp);
+	base = (unsigned char)get_base(sp);
 	alpha_16 = (GET(sp->type, T_X)) ? ALPHA_16 : UALPHA_16;
 	len = 1;
 	i = n;

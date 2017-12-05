@@ -25,7 +25,7 @@ int		ft_printf(const char *format, ...)
 	buf_init(&buf);
 	if (!format)
 		return (-1);
-	tmp = (char *)format;
+	tmp = (char*)format;
 	va_start(ap, format);
 	while (*tmp)
 	{

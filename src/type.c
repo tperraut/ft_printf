@@ -12,39 +12,44 @@
 
 #include "libftprintf.h"
 
+static unsigned short	other_type(char c)
+{
+	if (c == 'D')
+		return (T_UD);
+	if (c == 'C')
+		return (T_UC);
+	if (c == 'S')
+		return (T_US);
+	if (c == 'O')
+		return (T_UO);
+	if (c == 'U')
+		return (T_UU);
+	return (ZERO);
+}
+
 static unsigned short	basic_type(char c)
 {
 	if (c == 'd')
 		return (T_D);
-	else if (c == 'D')
-		return (T_UD);
-	else if (c == 'i')
+	if (c == 'i')
 		return (T_I);
-	else if (c == 'c')
+	if (c == 'c')
 		return (T_C);
-	else if (c == 'C')
-		return (T_UC);
-	else if (c == 's')
+	if (c == 's')
 		return (T_S);
-	else if (c == 'S')
-		return (T_US);
-	else if (c == 'p')
+	if (c == 'p')
 		return (T_P);
-	else if (c == 'o')
+	if (c == 'o')
 		return (T_O);
-	else if (c == 'O')
-		return (T_UO);
-	else if (c == 'u')
+	if (c == 'u')
 		return (T_U);
-	else if (c == 'U')
-		return (T_UU);
-	else if (c == 'x')
+	if (c == 'x')
 		return (T_X);
-	else if (c == 'X')
+	if (c == 'X')
 		return (T_UX);
-	else if (c == 'b')
+	if (c == 'b')
 		return (T_B);
-	return (ZERO);
+	return (other_type(c));
 }
 
 void					add_type(char **fmt, t_specs *sp)
