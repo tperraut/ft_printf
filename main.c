@@ -6,11 +6,16 @@
 
 int	main(void) {
 	int a;
+	int b;
+
 	setlocale(LC_ALL, "");
 #ifdef __TEST__
-	printf(":T %%R : {%-15Zlol}:\n", 123);
-	ft_printf(":B %%R : {%-15Zlol}:\n\n", 123);
+	//a = printf("{%05c}", 0);
+	a = printf("{%05.Z}\n", 2);
+	b = ft_printf("{%05.Z}\n", 0);
+	ft_printf("\n%d | %d\n", a, b);
 #endif
+
 #ifndef __TEST__
 	printf(":----BASIC TEST----:\n");
 	printf(":T %%d : %d:\n", INT_MIN);

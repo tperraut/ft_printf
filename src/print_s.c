@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:24:04 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 13:45:16 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/12/11 16:44:49 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ static void		print_ns(size_t *len, char *s, size_t size, t_buffer *b)
 
 static	void	print_s_nopreci(size_t len, char *s, t_buffer *b, t_specs *sp)
 {
+	char	opt;
+
+	opt = (GET(sp->flags, F_Z)) ? '0' : ' ';
 	if (GET(sp->flags, F_M))
 	{
 		if (!s || s == 0)
@@ -83,7 +86,7 @@ static	void	print_s_nopreci(size_t len, char *s, t_buffer *b, t_specs *sp)
 	else
 	{
 		len = ft_strlen(s);
-		print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
+		print_nopt(NULL, opt, (sp->width > len) ? sp->width - len : 0, b);
 		print_ns(NULL, s, len, b);
 	}
 }
@@ -91,7 +94,9 @@ static	void	print_s_nopreci(size_t len, char *s, t_buffer *b, t_specs *sp)
 void			print_s(char *s, t_specs *sp, t_buffer *b)
 {
 	size_t	len;
+	char	opt;
 
+	opt = (GET(sp->flags, F_Z)) ? '0' : ' ';
 	len = 0;
 	if ((!s || s == 0) && !GET(sp->info, PRECI))
 		b->addstr("(null)", b);
@@ -105,7 +110,7 @@ void			print_s(char *s, t_specs *sp, t_buffer *b)
 		else
 		{
 			len = MIN(ft_strlen(s), sp->preci);
-			print_nopt(NULL, ' ', (sp->width > len) ? sp->width - len : 0, b);
+			print_nopt(NULL, opt, (sp->width > len) ? sp->width - len : 0, b);
 			print_ns(NULL, s, len, b);
 		}
 	}

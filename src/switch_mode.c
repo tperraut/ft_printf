@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   switch_mode.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/11 11:05:47 by tperraut          #+#    #+#             */
+/*   Updated: 2017/12/11 11:33:53 by tperraut         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
@@ -80,7 +91,7 @@ void		switch_mode(char **fmt, t_buffer *b, t_specs *sp, va_list ap)
 	add_type(fmt, sp);
 	if (sp->type)
 		switch_uprint(b, sp, ap);
-	else
+	else if (**fmt)
 	{
 		len = check_flags_start(1, sp, b);
 		b->add(**fmt, b);

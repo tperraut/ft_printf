@@ -6,7 +6,7 @@
 /*   By: tperraut <tperraut@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 23:50:11 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/24 12:07:50 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/12/11 11:07:17 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int		ft_printf(const char *format, ...)
 		}
 	}
 	va_end(ap);
-	return ((int) buf.flush(&buf));
+	return ((int)buf.flush(&buf));
 }

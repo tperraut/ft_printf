@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:20:46 by tperraut          #+#    #+#             */
-/*   Updated: 2017/11/28 15:38:26 by tperraut         ###   ########.fr       */
+/*   Updated: 2017/12/11 16:44:33 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ static void		check_flags_middle(size_t *len, t_specs *sp, t_buffer *b)
 
 size_t			check_flags_start(size_t len, t_specs *sp, t_buffer *b)
 {
+	char	opt;
+
+	opt = (!sp->type && GET(sp->flags, F_Z)) ? '0' : ' ';
 	len = init_check_flags(len, sp);
 	if (GET(sp->flags, F_M) || (GET(sp->flags, F_Z) && !GET(sp->info, PRECI)))
 		check_flags_middle(&len, sp, b);
 	else
 	{
-		add_nopt(&len, ' ', (len < sp->width) ? sp->width - len : 0, b);
+		add_nopt(&len, opt, (len < sp->width) ? sp->width - len : 0, b);
 		check_flags_middle(&len, sp, b);
 	}
 	if (sp->type)
