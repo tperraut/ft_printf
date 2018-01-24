@@ -11,8 +11,8 @@ int	main(void) {
 	setlocale(LC_ALL, "");
 #ifdef __TEST__
 	//a = printf("{%05c}", 0);
-	a = printf("{%05.Z}\n", 2);
-	b = ft_printf("{%05.Z}\n", 0);
+	a = printf("1 : titi % +---12.5% et%%%0004% et %+1%\n");
+	b = ft_printf("2 : titi % +---12.5% et%%%0004% et %+1%\n");
 	ft_printf("\n%d | %d\n", a, b);
 #endif
 

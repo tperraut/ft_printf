@@ -106,6 +106,6 @@ norme: $(SRC) $(INCLUDE)
 	norminette $^
 
 test: all
-	$(CC) -o test main.c $(INC) -L ./ -lftprintf
+	$(CC) $(CFLAGS) -o test main.c $(INC) -L ./ -lftprintf
 
 .PHONY: all clean fclean re norme test

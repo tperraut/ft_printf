@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 11:06:31 by tperraut          #+#    #+#             */
-/*   Updated: 2017/12/11 11:06:56 by tperraut         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:02:43 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	print_uint(unsigned int n, t_specs *sp, t_buffer *b)
 		div *= base;
 		i /= base;
 	}
+	i = !is_empty(sp);
 	len = check_flags_start(len, sp, b);
-	if (!is_empty(sp))
-		while (div)
-		{
-			b->add(alpha_16[(n / div) % base], b);
-			div /= base;
-		}
+	while (div && i)
+	{
+		b->add(alpha_16[(n / div) % base], b);
+		div /= base;
+	}
 	check_flags_end(len, sp, b);
 }

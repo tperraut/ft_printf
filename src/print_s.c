@@ -6,7 +6,7 @@
 /*   By: tperraut <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/24 11:24:04 by tperraut          #+#    #+#             */
-/*   Updated: 2017/12/11 16:44:49 by tperraut         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:27:47 by tperraut         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void			print_s(char *s, t_specs *sp, t_buffer *b)
 
 	opt = (GET(sp->flags, F_Z)) ? '0' : ' ';
 	len = 0;
-	if ((!s || s == 0) && !GET(sp->info, PRECI))
-		b->addstr("(null)", b);
-	else if (GET(sp->info, PRECI))
+	if (!s || s == 0)
+		s = "(null)";
+	if (GET(sp->info, PRECI))
 	{
 		if (GET(sp->flags, F_M))
 		{
